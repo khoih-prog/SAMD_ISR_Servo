@@ -32,7 +32,7 @@
 * [Debug Terminal Output Samples](#debug-terminal-output-samples)
   * [1. SAMD_MultipleRandomServos on Adafruit SAMD51 ITSYBITSY_M4](#1-samd_multiplerandomservos-on-adafruit-samd51-itsybitsy_m4)
   * [2. SAMD_MultipleRandomServos on Arduino SAMD21 SAMD_NANO_33_IOT](#2-samd_multiplerandomservos-on-arduino-samd21-samd_nano_33_iot)
-  * [3. SAMD_MultipleServos on Seeeduino SAMD21 SEEED_XIAO_M0](#3-samd_multiplerandomservos-on-seeeduino-samd21-seeed_xiao_m0)
+  * [3. SAMD_MultipleRandomServos on Seeeduino SAMD21 SEEED_XIAO_M0](#3-samd_multiplerandomservos-on-seeeduino-samd21-seeed_xiao_m0)
 * [Debug](#debug)
 * [Troubleshooting](#troubleshooting)
 * [Releases](#releases)
@@ -674,7 +674,7 @@ Servos @ 0 degree
 
 ---
 
-### 3. SAMD_MultipleServos on Seeeduino SAMD21 SEEED_XIAO_M0
+### 3. SAMD_MultipleRandomServos on Seeeduino SAMD21 SEEED_XIAO_M0
 
 ```
 Starting SAMD_MultipleRandomServos on SEEED_XIAO_M0
