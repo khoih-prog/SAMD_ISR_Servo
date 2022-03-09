@@ -38,7 +38,7 @@
 * [Examples](#examples)
   * [ 1. SAMD_MultipleRandomServos](examples/SAMD_MultipleRandomServos)
   * [ 2. SAMD_MultipleServos](examples/SAMD_MultipleServos)
-  * [ 3. multiFileProject](examples/SAMD21/multiFileProject) **New**
+  * [ 3. multiFileProject](examples/multiFileProject) **New**
 * [Example SAMD_MultipleServos](#example-samd_multipleservos)
 * [Debug Terminal Output Samples](#debug-terminal-output-samples)
   * [1. SAMD_MultipleRandomServos on Adafruit SAMD51 ITSYBITSY_M4](#1-samd_multiplerandomservos-on-adafruit-samd51-itsybitsy_m4)
