@@ -1,6 +1,6 @@
 {
   "name": "SAMD_ISR_Servo",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "keywords": "timing, device, control, timer, interrupt, isr, isr-based, servo, isr-servo, hardware-timer, mission-critical, accuracy, precise, non-blocking, samd21, samd51, samd, nano-33-iot, samd-zero, itsybitsy-m4",
   "description": "This library enables you to use 1 Hardware Timer on SAMD21/SAMD51-based board, such as Nano-33-IoT, Seeeduino XIAO, Adafruit Itsy-Bitsy M4, etc. to control up to 16 or more servo motors.",
   "authors":
@@ -22,8 +22,9 @@
       "tests"
     ]
   },  
+  "license": "MIT",
   "frameworks": "*",
   "platforms": "samd",
   "examples": "examples/*/*/*.ino",
-  "license": "MIT"
+  "headers": ["SAMD_ISR_Servo.h", "SAMD_ISR_Servo.hpp"]
 }

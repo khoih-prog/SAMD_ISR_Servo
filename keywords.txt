@@ -8,7 +8,7 @@ SAMD_ISR_Servos  KEYWORD1
 SAMDFastTimerInterrupt	KEYWORD1
 SAMDFastTimer	KEYWORD1
 
-samd_timer_callback  KEYWORD1
+timer_callback  KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -40,3 +40,10 @@ getNumAvailableServos KEYWORD2
 #######################################
 # Literals (LITERAL1)
 #######################################
+
+SAMD_ISR_SERVO_VERSION  LITERAL1
+SAMD_ISR_SERVO_VERSION_MAJOR  LITERAL1
+SAMD_ISR_SERVO_VERSION_MINOR  LITERAL1
+SAMD_ISR_SERVO_VERSION_PATCH  LITERAL1
+SAMD_ISR_SERVO_VERSION_INT  LITERAL1
+
