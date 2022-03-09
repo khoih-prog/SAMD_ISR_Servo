@@ -16,11 +16,12 @@
   Based on BlynkTimer.h
   Author: Volodymyr Shymanskyy
 
-  Version: 1.0.0
+  Version: 1.1.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      21/08/2021 Initial coding for SAMD21/SAMD51 boards
+  1.1.0   K Hoang      09/03/2022 Convert to h-only style. Optimize code
  *****************************************************************************************************************************/
 
 #pragma once
@@ -29,10 +30,6 @@
 #define SAMD_ISR_Servo_Debug_h
 
 //////////////////////////////////////////
-
-#ifndef TIMER_INTERRUPT_DEBUG
-  #define TIMER_INTERRUPT_DEBUG         1
-#endif
 
 #ifndef ISR_SERVO_DEBUG
   #define ISR_SERVO_DEBUG               1

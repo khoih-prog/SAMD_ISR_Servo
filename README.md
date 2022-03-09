@@ -6,38 +6,46 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#Contributing)
 [![GitHub issues](https://img.shields.io/github/issues/khoih-prog/SAMD_ISR_Servo.svg)](http://github.com/khoih-prog/SAMD_ISR_Servo/issues)
 
-<a href="https://www.buymeacoffee.com/khoihprog6" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 181px !important;" ></a>
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Donate to my libraries using BuyMeACoffee" style="height: 50px !important;width: 181px !important;" ></a>
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange.svg?logo=buy-me-a-coffee&logoColor=FFDD00" style="height: 20px !important;width: 200px !important;" ></a>
 
 ---
 ---
 
 ## Table of Contents
 
+* [Important Change from v1.1.0](#Important-Change-from-v110)
 * [Why do we need this SAMD_ISR_Servo library](#why-do-we-need-this-samd_isr_servo-library)
   * [Features](#features)
   * [Important Notes about using ISR](#important-notes-about-using-isr)
   * [Currently supported Boards](#currently-supported-boards)
-* [Changelog](#changelog)
-  * [Releases v1.0.0](#releases-v100)
+* [Changelog](changelog.md)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
   * [Use Arduino Library Manager](#use-arduino-library-manager)
   * [Manual Install](#manual-install)
   * [VS Code & PlatformIO](#vs-code--platformio)
+* [Packages' Patches](#packages-patches)
+  * [1. For Arduino SAMD boards](#1-for-arduino-samd-boards)
+      * [For core version v1.8.10+](#for-core-version-v1810)
+      * [For core version v1.8.9-](#for-core-version-v189-)
+  * [2. For Adafruit SAMD boards](#2-for-adafruit-samd-boards)
+  * [3. For Seeeduino SAMD boards](#3-for-seeeduino-samd-boards)
+  * [4. For SparkFun SAMD boards](#4-for-SparkFun-samd-boards) 
+* [HOWTO Fix `Multiple Definitions` Linker Error](#howto-fix-multiple-definitions-linker-error)
 * [What special in this SAMD_ISR_Servo library](#what-special-in-this-samd_isr_servo-library)
 * [HOWTO Usage](#howto-usage)
 * [Examples](#examples)
   * [ 1. SAMD_MultipleRandomServos](examples/SAMD_MultipleRandomServos)
   * [ 2. SAMD_MultipleServos](examples/SAMD_MultipleServos)
+  * [ 3. multiFileProject](examples/SAMD21/multiFileProject) **New**
 * [Example SAMD_MultipleServos](#example-samd_multipleservos)
-  * [1. File SAMD_MultipleServos.ino](#1-file-samd_multipleservosino)
 * [Debug Terminal Output Samples](#debug-terminal-output-samples)
   * [1. SAMD_MultipleRandomServos on Adafruit SAMD51 ITSYBITSY_M4](#1-samd_multiplerandomservos-on-adafruit-samd51-itsybitsy_m4)
   * [2. SAMD_MultipleRandomServos on Arduino SAMD21 SAMD_NANO_33_IOT](#2-samd_multiplerandomservos-on-arduino-samd21-samd_nano_33_iot)
   * [3. SAMD_MultipleRandomServos on Seeeduino SAMD21 SEEED_XIAO_M0](#3-samd_multiplerandomservos-on-seeeduino-samd21-seeed_xiao_m0)
 * [Debug](#debug)
 * [Troubleshooting](#troubleshooting)
-* [Releases](#releases)
 * [Issues](#issues)
 * [TO DO](#to-do)
 * [DONE](#done)
@@ -45,6 +53,14 @@
 * [Contributing](#contributing)
 * [License](#license)
 * [Copyright](#copyright)
+
+
+---
+---
+
+### Important Change from v1.1.0
+
+Please have a look at [HOWTO Fix `Multiple Definitions` Linker Error](#howto-fix-multiple-definitions-linker-error)
 
 
 ---
@@ -90,17 +106,6 @@ This library enables you to use `1 Hardware Timer` on an SAMD-based board to con
   - **Seeeduino SAMD21/SAMD51 boards (SEEED_WIO_TERMINAL, SEEED_FEMTO_M0, SEEED_XIAO_M0, Wio_Lite_MG126, WIO_GPS_BOARD, SEEEDUINO_ZERO, SEEEDUINO_LORAWAN, SEEED_GROVE_UI_WIRELESS, etc.)** 
   - **Sparkfun SAMD21 boards** such as **SparkFun_RedBoard_Turbo, SparkFun_Qwiic_Micro, etc.**
   - **Sparkfun SAMD51 boards** such as **SparkFun_SAMD51_Thing_Plus, SparkFun_SAMD51_MicroMod, etc.**
- 
----
----
-
-## Changelog
-
-### Releases v1.0.0
-
-1. Basic 16 ISR-based servo controllers using 1 hardware timer for SAMD-based board
-2. Support to both SAMD21 and SAMD51
-
 
 ---
 ---
@@ -108,7 +113,7 @@ This library enables you to use `1 Hardware Timer` on an SAMD-based board to con
 ## Prerequisites
 
 1. [`Arduino IDE 1.8.19+` for Arduino](https://github.com/arduino/Arduino). [![GitHub release](https://img.shields.io/github/release/arduino/Arduino.svg)](https://github.com/arduino/Arduino/releases/latest)
-2. [`Arduino SAMD core 1.8.12+`](https://github.com/arduino/ArduinoCore-samd) for SAMD ARM Cortex-M0+ boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-samd.svg)](https://github.com/arduino/ArduinoCore-samd/releases/latest)
+2. [`Arduino SAMD core 1.8.13+`](https://github.com/arduino/ArduinoCore-samd) for SAMD ARM Cortex-M0+ boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-samd.svg)](https://github.com/arduino/ArduinoCore-samd/releases/latest)
 3. [`Adafruit SAMD core 1.7.9+`](https://github.com/adafruit/ArduinoCore-samd) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). [![GitHub release](https://img.shields.io/github/release/adafruit/ArduinoCore-samd.svg)](https://github.com/adafruit/ArduinoCore-samd/releases/latest)
 4. [`Seeeduino SAMD core 1.8.2+`](https://github.com/Seeed-Studio/ArduinoCore-samd) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). [![Latest release](https://img.shields.io/github/release/Seeed-Studio/ArduinoCore-samd.svg)](https://github.com/Seeed-Studio/ArduinoCore-samd/releases/latest/)
 5. [`Sparkfun SAMD core 1.8.1+`](https://github.com/sparkfun/Arduino_Boards) for SAMD21/SAMD51 boards (SparkFun_RedBoard_Turbo, SparkFun_SAMD51_Thing_Plus, etc.).
@@ -135,8 +140,136 @@ Another way to install is to:
 
 1. Install [VS Code](https://code.visualstudio.com/)
 2. Install [PlatformIO](https://platformio.org/platformio-ide)
-3. Install [**SAMD_ISR_Servo** library](https://platformio.org/lib/show/12721/SAMD_ISR_Servo) by using [Library Manager](https://platformio.org/lib/show/12721/SAMD_ISR_Servo/installation). Search for **SAMD_ISR_Servo** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
+3. Install [**SAMD_ISR_Servo** library](https://registry.platformio.org/libraries/khoih-prog/SAMD_ISR_Servo) by using [Library Manager](https://registry.platformio.org/libraries/khoih-prog/SAMD_ISR_Servo/installation). Search for **SAMD_ISR_Servo** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
 4. Use included [platformio.ini](platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically. Please visit documentation for the other options and examples at [Project Configuration File](https://docs.platformio.org/page/projectconf.html)
+
+
+---
+---
+
+### Packages' Patches
+
+#### 1. For Arduino SAMD boards
+ 
+ ***To be able to compile without error and automatically detect and display BOARD_NAME on Arduino SAMD (Nano-33-IoT, etc) boards***, you have to copy the whole [Arduino SAMD Packages_Patches](Packages_Patches/arduino/hardware/samd/1.8.13) directory into Arduino SAMD directory (~/.arduino15/packages/arduino/hardware/samd/1.8.13).
+ 
+#### For core version v1.8.10+
+
+Supposing the Arduino SAMD version is 1.8.13. Now only one file must be copied into the directory:
+
+- `~/.arduino15/packages/arduino/hardware/samd/1.8.13/platform.txt`
+
+Whenever a new version is installed, remember to copy this files into the new version directory. For example, new version is x.yy.zz
+
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/arduino/hardware/samd/x.yy.zz/platform.txt`
+ 
+#### For core version v1.8.9-
+
+Supposing the Arduino SAMD version is 1.8.9. These files must be copied into the directory:
+
+- `~/.arduino15/packages/arduino/hardware/samd/1.8.9/platform.txt`
+- ***`~/.arduino15/packages/arduino/hardware/samd/1.8.9/cores/arduino/Arduino.h`***
+
+Whenever a new version is installed, remember to copy these files into the new version directory. For example, new version is x.yy.z
+
+These files must be copied into the directory:
+
+- `~/.arduino15/packages/arduino/hardware/samd/x.yy.z/platform.txt`
+- ***`~/.arduino15/packages/arduino/hardware/samd/x.yy.z/cores/arduino/Arduino.h`***
+ 
+ This is mandatory to fix the ***notorious Arduino SAMD compiler error***. See [Improve Arduino compatibility with the STL (min and max macro)](https://github.com/arduino/ArduinoCore-samd/pull/399)
+ 
+```
+ ...\arm-none-eabi\include\c++\7.2.1\bits\stl_algobase.h:243:56: error: macro "min" passed 3 arguments, but takes just 2
+     min(const _Tp& __a, const _Tp& __b, _Compare __comp)
+```
+
+Whenever the above-mentioned compiler error issue is fixed with the new Arduino SAMD release, you don't need to copy the `Arduino.h` file anymore.
+
+#### 2. For Adafruit SAMD boards
+ 
+ ***To be able to compile without error and automatically detect and display BOARD_NAME on Adafruit SAMD (Itsy-Bitsy M4, etc) boards***, you have to copy the files in [Adafruit SAMD Packages_Patches](Packages_Patches/adafruit/hardware/samd/1.7.9) into Adafruit samd directory (~/.arduino15/packages/adafruit/hardware/samd/1.7.9). 
+
+Supposing the Adafruit SAMD core version is 1.7.9. This file must be copied into the directory:
+
+- `~/.arduino15/packages/adafruit/hardware/samd/1.7.9/platform.txt`
+- `~/.arduino15/packages/adafruit/hardware/samd/1.7.9/cores/arduino/Print.h`
+- `~/.arduino15/packages/adafruit/hardware/samd/1.7.9/cores/arduino/Print.cpp`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/adafruit/hardware/samd/x.yy.zz/platform.txt`
+- `~/.arduino15/packages/adafruit/hardware/samd/x.yy.zz/cores/arduino/Print.h`
+- `~/.arduino15/packages/adafruit/hardware/samd/x.yy.zz/cores/arduino/Print.cpp`
+
+#### 3. For Seeeduino SAMD boards
+ 
+ ***To be able to compile without error and automatically detect and display BOARD_NAME on Seeeduino SAMD (XIAO M0, Wio Terminal, etc) boards***, you have to copy the files in [Seeeduino SAMD Packages_Patches](Packages_Patches/Seeeduino/hardware/samd/1.8.2) into Seeeduino samd directory (~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2). 
+
+Supposing the Seeeduino SAMD core version is 1.8.2. This file must be copied into the directory:
+
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2/platform.txt`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2/cores/arduino/Arduino.h`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2/cores/arduino/Print.h`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2/cores/arduino/Print.cpp`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/Seeeduino/hardware/samd/x.yy.zz/platform.txt`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/x.yy.zz/cores/arduino/Arduino.h`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/x.yy.zz/cores/arduino/Print.h`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/x.yy.zz/cores/arduino/Print.cpp`
+
+#### 4. For SparkFun SAMD boards
+ 
+ ***To be able to compile without error and automatically detect and display BOARD_NAME on SparkFun SAMD (XIAO SparkFun_RedBoard_Turbo, SparkFun_SAMD51_Thing_Plus, etc) boards***, you have to copy the file [SparkFun SAMD Packages_Patches](Packages_Patches/SparkFun/hardware/samd/1.8.3) into SparkFun samd directory (~/.arduino15/packages/SparkFun/hardware/samd/1.8.3). 
+
+Supposing the SparkFun SAMD core version is 1.8.3. This file must be copied into the directory:
+
+- `~/.arduino15/packages/SparkFun/hardware/samd/1.8.3/cores/arduino/Print.h`
+- `~/.arduino15/packages/SparkFun/hardware/samd/1.8.3/cores/arduino/Print.cpp`
+- `~/.arduino15/packages/SparkFun/hardware/samd/1.8.3/cores/arduino51/Print.h`
+- `~/.arduino15/packages/SparkFun/hardware/samd/1.8.3/cores/arduino51/Print.cpp`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/SparkFun/hardware/samd/x.yy.zz/cores/arduino/Print.h`
+- `~/.arduino15/packages/SparkFun/hardware/samd/x.yy.zz/cores/arduino/Print.cpp`
+- `~/.arduino15/packages/SparkFun/hardware/samd/x.yy.zz/cores/arduino51/Print.h`
+- `~/.arduino15/packages/SparkFun/hardware/samd/x.yy.zz/cores/arduino51/Print.cpp`
+
+
+---
+---
+
+### HOWTO Fix `Multiple Definitions` Linker Error
+
+The current library implementation, using `xyz-Impl.h` instead of standard `xyz.cpp`, possibly creates certain `Multiple Definitions` Linker error in certain use cases.
+
+You can include this `.hpp` file
+
+```
+// Can be included as many times as necessary, without `Multiple Definitions` Linker Error
+#include "SAMD_ISR_Servo.hpp"     //https://github.com/khoih-prog/SAMD_ISR_Servo
+```
+
+in many files. But be sure to use the following `.h` file **in just 1 `.h`, `.cpp` or `.ino` file**, which must **not be included in any other file**, to avoid `Multiple Definitions` Linker Error
+
+```
+// To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
+#include "SAMD_ISR_Servo.h"           //https://github.com/khoih-prog/SAMD_ISR_Servo
+```
+
+Check the new [**multiFileProject** example](examples/multiFileProject) for a `HOWTO` demo.
+
+Have a look at the discussion in [Different behaviour using the src_cpp or src_h lib #80](https://github.com/khoih-prog/ESPAsync_WiFiManager/discussions/80)
+
+
 
 ---
 ---
@@ -162,152 +295,9 @@ This non-being-blocked important feature is absolutely necessary for mission-cri
 
 How to use:
 
-```
-#if !( defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000) || defined(ARDUINO_SAMD_MKRWIFI1010) \
-    || defined(ARDUINO_SAMD_NANO_33_IOT) || defined(ARDUINO_SAMD_MKRFox1200) || defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310) \
-    || defined(ARDUINO_SAMD_MKRGSM1400) || defined(ARDUINO_SAMD_MKRNB1500) || defined(ARDUINO_SAMD_MKRVIDOR4000) || defined(__SAMD21G18A__) \
-    || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
-    || defined(__SAMD51G19A__) || defined(__SAMD51P19A__) || defined(__SAMD21G18A__) )
-  #error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
-#endif
-
-#define TIMER_INTERRUPT_DEBUG       4
-#define ISR_SERVO_DEBUG             4
-
-#include "SAMD_ISR_Servo.h"
-
-// TIMER_TC3 for SAMD51, TIMER_TC3/TIMER_TCC for SAMD21
-#define USING_SAMD_TIMER            TIMER_TC3
-
-// Published values for SG90 servos; adjust if needed
-#define MIN_MICROS        800
-#define MAX_MICROS        2450 
-
-#define SERVO_PIN_1       A0
-#define SERVO_PIN_2       A1
-#define SERVO_PIN_3       A2
-#define SERVO_PIN_4       A3
-#define SERVO_PIN_5       A4
-#define SERVO_PIN_6       A5
-
-typedef struct
-{
-  int     servoIndex;
-  uint8_t servoPin;
-} ISR_servo_t;
-
-#define NUM_SERVOS            6
-
-ISR_servo_t ISR_servo[] =
-{
-  { -1, SERVO_PIN_1 }, { -1, SERVO_PIN_2 }, { -1, SERVO_PIN_3 }, { -1, SERVO_PIN_4 }, { -1, SERVO_PIN_5 }, { -1, SERVO_PIN_6 }
-};
+https://github.com/khoih-prog/SAMD_ISR_Servo/blob/f3b18bbd495be4f2a2e88f3534e76ad34d5dc75b/examples/SAMD_MultipleRandomServos/SAMD_MultipleRandomServos.ino#L45-L191
 
 
-void setup()
-{
-  for (int index = 0; index < NUM_SERVOS; index++)
-  {
-    pinMode(ISR_servo[index].servoPin, OUTPUT);
-    digitalWrite(ISR_servo[index].servoPin, LOW);
-  }
-  
-  Serial.begin(115200);
-  while (!Serial);
-
-  delay(200);
-
-  Serial.print(F("\nStarting SAMD_MultipleRandomServos on ")); Serial.println(BOARD_NAME);
-  Serial.println(SAMD_ISR_SERVO_VERSION);
-
-  // SAMD51 always uses TIMER_TC3
-  SAMD_ISR_Servos.useTimer(USING_SAMD_TIMER);
-
-  for (int index = 0; index < NUM_SERVOS; index++)
-  {
-    ISR_servo[index].servoIndex = SAMD_ISR_Servos.setupServo(ISR_servo[index].servoPin, MIN_MICROS, MAX_MICROS);
-
-    if (ISR_servo[index].servoIndex != -1)
-    {
-      Serial.print(F("Setup OK Servo index = ")); Serial.println(ISR_servo[index].servoIndex);
-    }
-    else
-    {
-      Serial.print(F("Setup Failed Servo index = ")); Serial.println(ISR_servo[index].servoIndex);
-    }
-  }
-
-  SAMD_ISR_Servos.setReadyToRun();
-}
-
-void printServoInfo(int indexServo)
-{
-  Serial.print(F("Servos idx = "));
-  Serial.print(indexServo);
-  Serial.print(F(", act. pos. (deg) = "));
-  Serial.print(SAMD_ISR_Servos.getPosition(ISR_servo[indexServo].servoIndex) );
-  Serial.print(F(", pulseWidth (us) = "));
-  Serial.println(SAMD_ISR_Servos.getPulseWidth(ISR_servo[indexServo].servoIndex));
-}
-
-void loop()
-{
-  int position;      // position in degrees
-
-  position = 0;
-  Serial.println(F("Servos @ 0 degree"));
-  
-  for (int index = 0; index < NUM_SERVOS; index++)
-  {
-    SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position );
-    printServoInfo(index);
-  }
-  // waits 5s between test
-  delay(5000);
-
-  position = 90;
-  Serial.println(F("Servos @ 90 degree"));
-  
-  for (int index = 0; index < NUM_SERVOS; index++)
-  {
-    SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position );
-    printServoInfo(index);
-  }
-  
-  // waits 5s between test
-  delay(5000);
-
-  position = 180;
-  Serial.println(F("Servos @ 180 degree"));
-  
-  for (int index = 0; index < NUM_SERVOS; index++)
-  {
-    SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position );
-    printServoInfo(index);
-  }
-  
-  // waits 5s between test
-  delay(5000);
-
-  Serial.println(F("Servos sweeps from 0-180 degress"));
-  
-  for (position = 0; position <= 180; position += 5)
-  {
-    // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    for (int index = 0; index < NUM_SERVOS; index++)
-    {
-      SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position );
-    }
-    
-    // waits 0.1s for the servo to reach the position
-    delay(100);
-  }
-  
-  // waits 5s between test
-  delay(5000);
-}
-```
 
 ---
 ---
@@ -315,112 +305,16 @@ void loop()
 ### Examples: 
 
  1. [SAMD_MultipleRandomServos](examples/SAMD_MultipleRandomServos) 
- 2. [SAMD_MultipleServos](examples/SAMD_MultipleServos) 
+ 2. [SAMD_MultipleServos](examples/SAMD_MultipleServos)
+ 3. [multiFileProject](examples/multiFileProject). **New**
  
 ---
 
 ### Example [SAMD_MultipleServos](examples/SAMD_MultipleServos)
 
+https://github.com/khoih-prog/SAMD_ISR_Servo/blob/f3b18bbd495be4f2a2e88f3534e76ad34d5dc75b/examples/SAMD_MultipleServos/SAMD_MultipleServos.ino#L45-L142
 
-#### 1. File [SAMD_MultipleServos.ino](examples/SAMD_MultipleServos/SAMD_MultipleServos.ino)
 
-```cpp
-#if !( defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000) || defined(ARDUINO_SAMD_MKRWIFI1010) \
-    || defined(ARDUINO_SAMD_NANO_33_IOT) || defined(ARDUINO_SAMD_MKRFox1200) || defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310) \
-    || defined(ARDUINO_SAMD_MKRGSM1400) || defined(ARDUINO_SAMD_MKRNB1500) || defined(ARDUINO_SAMD_MKRVIDOR4000) || defined(__SAMD21G18A__) \
-    || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
-    || defined(__SAMD51G19A__) || defined(__SAMD51P19A__) || defined(__SAMD21G18A__) )
-  #error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
-#endif
-
-#define TIMER_INTERRUPT_DEBUG       4
-#define ISR_SERVO_DEBUG             4
-
-#include "SAMD_ISR_Servo.h"
-
-// TIMER_TC3 for SAMD51, TIMER_TC3/TIMER_TCC for SAMD21
-#define USING_SAMD_TIMER            TIMER_TC3
-
-// Published values for SG90 servos; adjust if needed
-#define MIN_MICROS        800
-#define MAX_MICROS        2450
-
-#define SERVO_PIN_1       A0
-#define SERVO_PIN_2       A1
-#define SERVO_PIN_3       A2
-#define SERVO_PIN_4       A3
-#define SERVO_PIN_5       A4
-#define SERVO_PIN_6       A5
-
-typedef struct
-{
-  int     servoIndex;
-  uint8_t servoPin;
-} ISR_servo_t;
-
-#define NUM_SERVOS            6
-
-ISR_servo_t ISR_servo[] =
-{
-  { -1, SERVO_PIN_1 }, { -1, SERVO_PIN_2 }, { -1, SERVO_PIN_3 }, { -1, SERVO_PIN_4 }, { -1, SERVO_PIN_5 }, { -1, SERVO_PIN_6 }
-};
-
-void setup()
-{
-  for (int index = 0; index < NUM_SERVOS; index++)
-  {
-    pinMode(ISR_servo[index].servoPin, OUTPUT);
-    digitalWrite(ISR_servo[index].servoPin, LOW);
-  }
-  
-  Serial.begin(115200);
-  while (!Serial);
-
-  delay(200);
-
-  Serial.print(F("\nStarting SAMD_MultipleServos on ")); Serial.println(BOARD_NAME);
-  Serial.println(SAMD_ISR_SERVO_VERSION);
-
-  // SAMD51 always uses TIMER_TC3
-  SAMD_ISR_Servos.useTimer(USING_SAMD_TIMER);
-  
-  for (int index = 0; index < NUM_SERVOS; index++)
-  {
-    ISR_servo[index].servoIndex = SAMD_ISR_Servos.setupServo(ISR_servo[index].servoPin, MIN_MICROS, MAX_MICROS);
-
-    if (ISR_servo[index].servoIndex != -1)
-    {
-      Serial.print(F("Setup OK, Servo index = ")); Serial.println(ISR_servo[index].servoIndex);
-    }
-    else
-    {
-      Serial.print(F("Setup Failed, Servo index = ")); Serial.println(ISR_servo[index].servoIndex);
-    }
-  }
-
-  SAMD_ISR_Servos.setReadyToRun();
-}
-
-void loop()
-{
-  int position;      // position in degrees
-
-  for (position = 0; position <= 180; position += 10)
-  {
-    // goes from 0 degrees to 180 degrees
-    // in steps of 10 degree
-    for (int index = 0; index < NUM_SERVOS; index++)
-    {
-      SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position);
-    }
-    
-    // waits 1s for the servo to reach the position
-    delay(1000);
-  }
-
-  delay(5000);
-}
-```
 ---
 ---
 
@@ -431,7 +325,7 @@ void loop()
 
 ```
 Starting SAMD_MultipleRandomServos on ITSYBITSY_M4
-SAMD_ISR_Servo v1.0.0
+SAMD_ISR_Servo v1.1.0
 Setup OK, Servo index = 0
 Setup OK, Servo index = 1
 Setup OK, Servo index = 2
@@ -563,7 +457,7 @@ Servos idx = 2, act. pos. (deg) = [ISR_SERVO] Idx = 2
 
 ```
 Starting SAMD_MultipleRandomServos on SAMD_NANO_33_IOT
-SAMD_ISR_Servo v1.0.0
+SAMD_ISR_Servo v1.1.0
 Setup OK Servo index = 0
 Setup OK Servo index = 1
 Setup OK Servo index = 2
@@ -680,7 +574,7 @@ Servos @ 0 degree
 
 ```
 Starting SAMD_MultipleRandomServos on SEEED_XIAO_M0
-SAMD_ISR_Servo v1.0.0
+SAMD_ISR_Servo v1.1.0
 [ISR_SERVO] _period = 20 , frequency = 50000.00
 [ISR_SERVO] SAMDFastTimerInterrupt: F_CPU (MHz) = 48 , TIMER_HZ = 48
 [ISR_SERVO] TC_Timer::startTimer _Timer = 0x 42002C00
@@ -768,7 +662,6 @@ Debug is enabled by default on Serial.
 You can also change the debugging level from 0 to 2. Be careful and using level 2 only for temporary debug purpose only.
 
 ```cpp
-#define TIMER_INTERRUPT_DEBUG       1
 #define ISR_SERVO_DEBUG             1
 ```
 
@@ -780,16 +673,6 @@ If you get compilation errors, more often than not, you may need to install a ne
 
 Sometimes, the library will only work if you update the board core to the latest version because I am using newly added functions.
 
-
----
----
-
-## Releases
-
-### Releases v1.0.0
-
-1. Basic 16 ISR-based servo controllers using 1 hardware timer for SAMD-based board
-2. Support to both SAMD21 and SAMD51
 
 ---
 ---
@@ -813,6 +696,11 @@ Submit issues to: [SAMD_ISR_Servo issues](https://github.com/khoih-prog/SAMD_ISR
 2. Add functions `getPosition()` and `getPulseWidth()`
 3. Optimize the code
 4. Add complicated examples
+5. Convert to h-only style.
+6. Optimize library code by using `reference-passing` instead of `value-passing`
+7. Display informational warning only when `ISR_SERVO_DEBUG` > 1
+8. Add support to many more boards, such as `SAMD21E1xA`, `SAMD21G1xA` and`SAMD21J1xA`
+
 
 ---
 ---
