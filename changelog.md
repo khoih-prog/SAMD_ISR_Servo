@@ -28,8 +28,9 @@
 2. Optimize library code by using `reference-passing` instead of `value-passing`
 3. Display informational warning only when `ISR_SERVO_DEBUG` > 1
 4. Add support to many more boards, such as `SAMD21E1xA`, `SAMD21G1xA` and`SAMD21J1xA`
-5. Update examples accordingly
-6. Update `Packages' Patches`
+5. Add example [multiFileProject](examples/multiFileProject) to demo for multiple-file project
+6. Update examples accordingly
+7. Update `Packages' Patches`
 
 ### Releases v1.0.0
 
