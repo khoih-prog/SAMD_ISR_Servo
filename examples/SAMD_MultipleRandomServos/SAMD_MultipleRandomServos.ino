@@ -3,7 +3,7 @@
   For :
   - SAMD21-based boards such as Nano-33-IoT, SAMD Zero, Seeeduino XIAO, etc.
   - SAMD51-based boards such as Adafruit Itsy-Bitsy M4, Metro M4, Seeeduino WIO-Terminal, etc.
-  
+
   Written by Khoi Hoang
 
   Built by Khoi Hoang https://github.com/khoih-prog/SAMD_ISR_Servo
@@ -30,7 +30,7 @@
    considerable power, we will connect servo power to the VBat pin of the SAMD (located
    near the USB connector). THIS IS ONLY APPROPRIATE FOR SMALL SERVOS.
 
-   We could also connect servo power to a separate external power source (as long as we connect all of 
+   We could also connect servo power to a separate external power source (as long as we connect all of
    the grounds (SAMD, servo, and external power).
    In this example, we just connect SAMD ground to servo ground. The servo signal pins
    connect to any available GPIO pins on the SAMD (in this example, we use pins (D1-D6).
@@ -50,7 +50,7 @@
       || defined(__SAMD21E15A__) || defined(__SAMD21E16A__) || defined(__SAMD21E17A__) || defined(__SAMD21E18A__) \
       || defined(__SAMD21G15A__) || defined(__SAMD21G16A__) || defined(__SAMD21G17A__) || defined(__SAMD21G18A__) \
       || defined(__SAMD21J15A__) || defined(__SAMD21J16A__) || defined(__SAMD21J17A__) || defined(__SAMD21J18A__) )
-  #error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
+#error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
 #endif
 
 #define ISR_SERVO_DEBUG             1
@@ -63,7 +63,7 @@
 
 // Published values for SG90 servos; adjust if needed
 #define MIN_MICROS        800
-#define MAX_MICROS        2450 
+#define MAX_MICROS        2450
 
 #define SERVO_PIN_1       A0
 #define SERVO_PIN_2       A1
@@ -93,13 +93,15 @@ void setup()
     pinMode(ISR_servo[index].servoPin, OUTPUT);
     digitalWrite(ISR_servo[index].servoPin, LOW);
   }
-  
+
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStarting SAMD_MultipleRandomServos on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStarting SAMD_MultipleRandomServos on "));
+  Serial.println(BOARD_NAME);
   Serial.println(SAMD_ISR_SERVO_VERSION);
 
   // SAMD51 always uses TIMER_TC3
@@ -111,11 +113,13 @@ void setup()
 
     if (ISR_servo[index].servoIndex != -1)
     {
-      Serial.print(F("Setup OK Servo index = ")); Serial.println(ISR_servo[index].servoIndex);
+      Serial.print(F("Setup OK Servo index = "));
+      Serial.println(ISR_servo[index].servoIndex);
     }
     else
     {
-      Serial.print(F("Setup Failed Servo index = ")); Serial.println(ISR_servo[index].servoIndex);
+      Serial.print(F("Setup Failed Servo index = "));
+      Serial.println(ISR_servo[index].servoIndex);
     }
   }
 
@@ -138,41 +142,42 @@ void loop()
 
   position = 0;
   Serial.println(F("Servos @ 0 degree"));
-  
+
   for (int index = 0; index < NUM_SERVOS; index++)
   {
     SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position );
     printServoInfo(index);
   }
+
   // waits 5s between test
   delay(5000);
 
   position = 90;
   Serial.println(F("Servos @ 90 degree"));
-  
+
   for (int index = 0; index < NUM_SERVOS; index++)
   {
     SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position );
     printServoInfo(index);
   }
-  
+
   // waits 5s between test
   delay(5000);
 
   position = 180;
   Serial.println(F("Servos @ 180 degree"));
-  
+
   for (int index = 0; index < NUM_SERVOS; index++)
   {
     SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position );
     printServoInfo(index);
   }
-  
+
   // waits 5s between test
   delay(5000);
 
   Serial.println(F("Servos sweeps from 0-180 degress"));
-  
+
   for (position = 0; position <= 180; position += 5)
   {
     // goes from 0 degrees to 180 degrees
@@ -181,11 +186,11 @@ void loop()
     {
       SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position );
     }
-    
+
     // waits 0.1s for the servo to reach the position
     delay(100);
   }
-  
+
   // waits 5s between test
   delay(5000);
 }

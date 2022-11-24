@@ -3,7 +3,7 @@
   For :
   - SAMD21-based boards such as Nano-33-IoT, SAMD Zero, Seeeduino XIAO, etc.
   - SAMD51-based boards such as Adafruit Itsy-Bitsy M4, Metro M4, Seeeduino WIO-Terminal, etc.
-  
+
   Written by Khoi Hoang
 
   Built by Khoi Hoang https://github.com/khoih-prog/SAMD_ISR_Servo
@@ -30,7 +30,7 @@
    considerable power, we will connect servo power to the VBat pin of the SAMD (located
    near the USB connector). THIS IS ONLY APPROPRIATE FOR SMALL SERVOS.
 
-   We could also connect servo power to a separate external power source (as long as we connect all of 
+   We could also connect servo power to a separate external power source (as long as we connect all of
    the grounds (SAMD, servo, and external power).
    In this example, we just connect SAMD ground to servo ground. The servo signal pins
    connect to any available GPIO pins on the SAMD (in this example, we use pins (D1-D6).
@@ -50,7 +50,7 @@
       || defined(__SAMD21E15A__) || defined(__SAMD21E16A__) || defined(__SAMD21E17A__) || defined(__SAMD21E18A__) \
       || defined(__SAMD21G15A__) || defined(__SAMD21G16A__) || defined(__SAMD21G17A__) || defined(__SAMD21G18A__) \
       || defined(__SAMD21J15A__) || defined(__SAMD21J16A__) || defined(__SAMD21J17A__) || defined(__SAMD21J18A__) )
-  #error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
+#error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
 #endif
 
 #define ISR_SERVO_DEBUG             2
@@ -92,29 +92,33 @@ void setup()
     pinMode(ISR_servo[index].servoPin, OUTPUT);
     digitalWrite(ISR_servo[index].servoPin, LOW);
   }
-  
+
   Serial.begin(115200);
+
   while (!Serial);
 
   delay(200);
 
-  Serial.print(F("\nStarting SAMD_MultipleServos on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStarting SAMD_MultipleServos on "));
+  Serial.println(BOARD_NAME);
   Serial.println(SAMD_ISR_SERVO_VERSION);
 
   // SAMD51 always uses TIMER_TC3
   SAMD_ISR_Servos.useTimer(USING_SAMD_TIMER);
-  
+
   for (int index = 0; index < NUM_SERVOS; index++)
   {
     ISR_servo[index].servoIndex = SAMD_ISR_Servos.setupServo(ISR_servo[index].servoPin, MIN_MICROS, MAX_MICROS);
 
     if (ISR_servo[index].servoIndex != -1)
     {
-      Serial.print(F("Setup OK, Servo index = ")); Serial.println(ISR_servo[index].servoIndex);
+      Serial.print(F("Setup OK, Servo index = "));
+      Serial.println(ISR_servo[index].servoIndex);
     }
     else
     {
-      Serial.print(F("Setup Failed, Servo index = ")); Serial.println(ISR_servo[index].servoIndex);
+      Serial.print(F("Setup Failed, Servo index = "));
+      Serial.println(ISR_servo[index].servoIndex);
     }
   }
 
@@ -133,7 +137,7 @@ void loop()
     {
       SAMD_ISR_Servos.setPosition(ISR_servo[index].servoIndex, position);
     }
-    
+
     // waits 1s for the servo to reach the position
     delay(1000);
   }

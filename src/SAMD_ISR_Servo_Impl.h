@@ -3,7 +3,7 @@
   For :
   - SAMD21-based boards such as Nano-33-IoT, SAMD Zero, Seeeduino XIAO, etc.
   - SAMD51-based boards such as Adafruit Itsy-Bitsy M4, Metro M4, Seeeduino WIO-Terminal, etc.
-  
+
   Written by Khoi Hoang
 
   Built by Khoi Hoang https://github.com/khoih-prog/SAMD_ISR_Servo
@@ -43,7 +43,7 @@ static SAMD_ISR_Servo SAMD_ISR_Servos;  // create servo object to control up to 
 //////////////////////////////////////////////////
 
 void SAMD_ISR_Servo_Handler()
-{ 
+{
   SAMD_ISR_Servos.run();
 }
 
@@ -59,7 +59,7 @@ SAMD_ISR_Servo::SAMD_ISR_Servo()
 void SAMD_ISR_Servo::run()
 {
   static int servoIndex;
-  
+
   for (servoIndex = 0; servoIndex < MAX_SERVOS; servoIndex++)
   {
     if ( servo[servoIndex].enabled  && (servo[servoIndex].pin <= SAMD_MAX_PIN) )
@@ -114,7 +114,7 @@ int8_t SAMD_ISR_Servo::findFirstFreeSlot()
 int8_t SAMD_ISR_Servo::setupServo(const uint8_t& pin, const uint16_t& min, const uint16_t& max)
 {
   int servoIndex;
-    
+
   if (pin > SAMD_MAX_PIN)
     return -1;
 
@@ -122,12 +122,12 @@ int8_t SAMD_ISR_Servo::setupServo(const uint8_t& pin, const uint16_t& min, const
     init();
 
   servoIndex = findFirstFreeSlot();
-  
+
   if (servoIndex < 0)
     return -1;
-    
+
   pinMode(pin, OUTPUT);
-  
+
   servo[servoIndex].pin        = pin;
   servo[servoIndex].min        = min;
   servo[servoIndex].max        = max;
@@ -136,10 +136,10 @@ int8_t SAMD_ISR_Servo::setupServo(const uint8_t& pin, const uint16_t& min, const
   servo[servoIndex].enabled    = true;
 
   numServos++;
- 
+
   ISR_SERVO_LOGDEBUG3("Index =", servoIndex, ", count =", servo[servoIndex].count);
   ISR_SERVO_LOGDEBUG3("min =", servo[servoIndex].min, ", max =", servo[servoIndex].max);
- 
+
   return servoIndex;
 }
 
@@ -154,10 +154,11 @@ bool SAMD_ISR_Servo::setPosition(const uint8_t& servoIndex, const uint16_t& posi
   if ( servo[servoIndex].enabled && (servo[servoIndex].pin <= SAMD_MAX_PIN) )
   {
     servo[servoIndex].position  = position;
-    servo[servoIndex].count     = map(position, 0, 180, servo[servoIndex].min, servo[servoIndex].max) / TIMER_INTERVAL_MICRO;
+    servo[servoIndex].count     = map(position, 0, 180, servo[servoIndex].min,
+                                      servo[servoIndex].max) / TIMER_INTERVAL_MICRO;
 
     ISR_SERVO_LOGDEBUG1("Idx =", servoIndex);
-    ISR_SERVO_LOGDEBUG3("cnt =", servo[servoIndex].count, ", pos =",servo[servoIndex].position);
+    ISR_SERVO_LOGDEBUG3("cnt =", servo[servoIndex].count, ", pos =", servo[servoIndex].position);
 
     return true;
   }
@@ -178,7 +179,7 @@ int SAMD_ISR_Servo::getPosition(const uint8_t& servoIndex)
   if ( servo[servoIndex].enabled && (servo[servoIndex].pin <= SAMD_MAX_PIN) )
   {
     ISR_SERVO_LOGERROR1("Idx =", servoIndex);
-    ISR_SERVO_LOGERROR3("cnt =", servo[servoIndex].count, ", pos =",servo[servoIndex].position);
+    ISR_SERVO_LOGERROR3("cnt =", servo[servoIndex].count, ", pos =", servo[servoIndex].position);
 
     return (servo[servoIndex].position);
   }
@@ -210,7 +211,7 @@ bool SAMD_ISR_Servo::setPulseWidth(const uint8_t& servoIndex, uint16_t& pulseWid
     servo[servoIndex].position  = map(pulseWidth, servo[servoIndex].min, servo[servoIndex].max, 0, 180);
 
     ISR_SERVO_LOGERROR1("Idx =", servoIndex);
-    ISR_SERVO_LOGERROR3("cnt =", servo[servoIndex].count, ", pos =",servo[servoIndex].position);
+    ISR_SERVO_LOGERROR3("cnt =", servo[servoIndex].count, ", pos =", servo[servoIndex].position);
 
     return true;
   }
@@ -231,7 +232,7 @@ uint16_t SAMD_ISR_Servo::getPulseWidth(const uint8_t& servoIndex)
   if ( servo[servoIndex].enabled && (servo[servoIndex].pin <= SAMD_MAX_PIN) )
   {
     ISR_SERVO_LOGERROR1("Idx =", servoIndex);
-    ISR_SERVO_LOGERROR3("cnt =", servo[servoIndex].count, ", pos =",servo[servoIndex].position);
+    ISR_SERVO_LOGERROR3("cnt =", servo[servoIndex].count, ", pos =", servo[servoIndex].position);
 
     return (servo[servoIndex].count * TIMER_INTERVAL_MICRO );
   }
@@ -327,8 +328,8 @@ void SAMD_ISR_Servo::enableAll()
 
   for (int servoIndex = 0; servoIndex < MAX_SERVOS; servoIndex++)
   {
-    if ( (servo[servoIndex].count >= servo[servoIndex].min / TIMER_INTERVAL_MICRO ) && !servo[servoIndex].enabled 
-      && (servo[servoIndex].pin <= SAMD_MAX_PIN) )
+    if ( (servo[servoIndex].count >= servo[servoIndex].min / TIMER_INTERVAL_MICRO ) && !servo[servoIndex].enabled
+         && (servo[servoIndex].pin <= SAMD_MAX_PIN) )
     {
       servo[servoIndex].enabled = true;
     }
@@ -365,4 +366,4 @@ int8_t SAMD_ISR_Servo::getNumServos()
   return numServos;
 }
 
-#endif	// SAMD_ISR_Servo_Impl_HPP
+#endif  // SAMD_ISR_Servo_Impl_HPP

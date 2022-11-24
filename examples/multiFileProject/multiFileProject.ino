@@ -3,7 +3,7 @@
   For :
   - SAMD21-based boards such as Nano-33-IoT, SAMD Zero, Seeeduino XIAO, etc.
   - SAMD51-based boards such as Adafruit Itsy-Bitsy M4, Metro M4, Seeeduino WIO-Terminal, etc.
-  
+
   Written by Khoi Hoang
 
   Built by Khoi Hoang https://github.com/khoih-prog/SAMD_ISR_Servo
@@ -20,7 +20,7 @@
       || defined(__SAMD21E15A__) || defined(__SAMD21E16A__) || defined(__SAMD21E17A__) || defined(__SAMD21E18A__) \
       || defined(__SAMD21G15A__) || defined(__SAMD21G16A__) || defined(__SAMD21G17A__) || defined(__SAMD21G18A__) \
       || defined(__SAMD21J15A__) || defined(__SAMD21J16A__) || defined(__SAMD21J17A__) || defined(__SAMD21J18A__) )
-  #error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
+#error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
 #endif
 
 #define SAMD_ISR_SERVO_VERSION_MIN_TARGET      "SAMD_ISR_Servo v1.1.0"
@@ -33,24 +33,27 @@
 // To be included only in main(), .ino with setup() to avoid `Multiple Definitions` Linker Error
 #include "SAMD_ISR_Servo.h"
 
-void setup() 
+void setup()
 {
   Serial.begin(115200);
+
   while (!Serial);
-  
+
   Serial.println("\nStart multiFileProject");
   Serial.println(SAMD_ISR_SERVO_VERSION);
 
 #if defined(SAMD_ISR_SERVO_VERSION_MIN)
+
   if (SAMD_ISR_SERVO_VERSION_INT < SAMD_ISR_SERVO_VERSION_MIN)
   {
     Serial.print("Warning. Must use this example on Version equal or later than : ");
     Serial.println(SAMD_ISR_SERVO_VERSION_MIN_TARGET);
   }
+
 #endif
 }
 
-void loop() 
+void loop()
 {
   // put your main code here, to run repeatedly:
 }
