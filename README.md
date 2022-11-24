@@ -299,7 +299,7 @@ This non-being-blocked important feature is absolutely necessary for mission-cri
 
 How to use:
 
-https://github.com/khoih-prog/SAMD_ISR_Servo/blob/f3b18bbd495be4f2a2e88f3534e76ad34d5dc75b/examples/SAMD_MultipleRandomServos/SAMD_MultipleRandomServos.ino#L45-L191
+https://github.com/khoih-prog/SAMD_ISR_Servo/blob/14eb3a4d93c486647272604b74741236bf6f97de/examples/SAMD_MultipleRandomServos/SAMD_MultipleRandomServos.ino#L45-L196
 
 
 
@@ -316,7 +316,7 @@ https://github.com/khoih-prog/SAMD_ISR_Servo/blob/f3b18bbd495be4f2a2e88f3534e76a
 
 ### Example [SAMD_MultipleServos](examples/SAMD_MultipleServos)
 
-https://github.com/khoih-prog/SAMD_ISR_Servo/blob/f3b18bbd495be4f2a2e88f3534e76ad34d5dc75b/examples/SAMD_MultipleServos/SAMD_MultipleServos.ino#L45-L142
+https://github.com/khoih-prog/SAMD_ISR_Servo/blob/14eb3a4d93c486647272604b74741236bf6f97de/examples/SAMD_MultipleServos/SAMD_MultipleServos.ino#L45-L146
 
 
 ---
@@ -734,4 +734,4 @@ If you want to contribute to this project:
 
 ## Copyright
 
-Copyright(c) 2021- Khoi Hoang
+Copyright (c) 2021- Khoi Hoang
